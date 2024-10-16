@@ -4,15 +4,21 @@ My steno project (python version)
 
 ** Usage
 
+To extract words images:
+#+begin_src shell
+python steno/extract.py <input_image_path> <output_directory>
+#+end_src
+
 ** Development
+
 *** Requirements
 
-*** One-time setup
-
+- direnv
+- nix
+  
 *** REPL
 
-** Deploy
-
+In emacs use py-vterm and ipython repl
 
 ** Resources
 
@@ -20,8 +26,12 @@ My steno project (python version)
 
 ** Tasks
 
+*** DONE Extract words images from a page image
+*** Reduce the width of lines in a word to single pixel 
+*** Transform the word image in a number sequence
 
 * License
 
-Copyright © 2024 Dan Pomohaci
+pysteno is released under the GNU General Public License. See the [[file:LICENSE][file]] for details.
+
 
