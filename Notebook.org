@@ -1,0 +1,71 @@
+#+TITLE: Notebook
+#+DESCRIPTION: steno in python
+#+AUTHOR: Dan Pomohaci
+#+EMAIL: dan.pomohaci@gmail.com
+#+STARTUP: overview indent align inlineimages
+
+* 2024-10-16
+
+- testez mediu de dev
+  #+begin_src python
+import cv2
+
+# %%
+import os
+cwd = os.getcwd()
+print(cwd)
+
+# %%
+image = cv2.imread("resources/orig.jpg")
+?image
+original = image.copy()
+
+
+# %%
+cv2.imshow("image", image)
+cv2.waitKey()
+cv2.destroyWindow("image")
+
+# %%
+def show(img):
+  cv2.imshow("image", img)
+  cv2.waitKey()
+  cv2.destroyWindow("image")
+
+  
+# %%
+gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+show(gray)
+
+# %%
+blur = cv2.GaussianBlur(image, (5,5), 0)
+show(blur)
+
+# %%
+blur = cv2.GaussianBlur(gray, (5,5), 0)
+show(blur)
+
+# %%
+thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+show(thresh)
+
+# %%
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7,7))
+dilate = cv2.dilate(thresh, kernel, iterations=1)
+show(dilate)
+
+# %%
+cnts = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+image_number = 0
+for c in cnts:
+    x,y,w,h = cv2.boundingRect(c)
+    cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
+    ROI = original[y:y+h, x:x+w]
+    cv2.imwrite("ROI_{}.png".format(image_number), ROI)
+    image_number += 1
+
+# %%
+import steno.extract as extract
+extract.extract_words("resources/orig.png", "resources/words")
+  #+end_src

@@ -1,0 +1,27 @@
+* pysteno
+
+My steno project (python version)
+
+** Usage
+
+** Development
+*** Requirements
+
+*** One-time setup
+
+*** REPL
+
+** Deploy
+
+
+** Resources
+
+1. https://stackoverflow.com/questions/56604151/how-to-extract-multiple-objects-from-an-image-using-python-opencv
+
+** Tasks
+
+
+* License
+
+Copyright © 2024 Dan Pomohaci
+
